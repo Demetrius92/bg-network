@@ -1,7 +1,7 @@
 package com.analogicgames.bgnetwork.boardgame;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
-public interface BoardGameRepository extends CrudRepository<BoardGame, Long> {
+public interface BoardGameRepository extends ListCrudRepository<BoardGame, Long> {
 
 }

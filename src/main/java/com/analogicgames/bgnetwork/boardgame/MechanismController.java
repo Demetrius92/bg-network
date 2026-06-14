@@ -1,8 +1,6 @@
 package com.analogicgames.bgnetwork.boardgame;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,40 +16,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MechanismController {
     @Autowired
-    private MechanismRepository mechanismRepository;
+    private MechanismService mechanismService;
 
     @Autowired
     private MechanismMapper mechanismMapper;
 
     @GetMapping("/mechanisms")
     public List<MechanismDto> listMechanisms() {
-        return StreamSupport
-            .stream(mechanismRepository.findAll().spliterator(), true)
+        return mechanismService
+            .getAllMechanims()
+            .parallelStream()
             .map(mechanism -> mechanismMapper.mechanismToDto(mechanism))
             .toList();
     }
 
     @GetMapping("/mechanisms/{id}")
     public MechanismDto getMechanism(@PathVariable Long id) throws MechanismNotFoundException {
-        return mechanismMapper.mechanismToDto(
-            mechanismRepository
-                .findById(id)
-                .orElseThrow(() -> new MechanismNotFoundException("Mechanism not found")));
+        return mechanismMapper
+            .mechanismToDto(
+                mechanismService.getMechanism(id)
+            );
     }
 
     @PostMapping("/mechanisms")
     public MechanismDto registerMechanism(@RequestBody MechanismDto mechanismDto) {
         return mechanismMapper
             .mechanismToDto(
-                mechanismRepository.save(mechanismMapper.dtoToMechanism(mechanismDto)
-            )
-        );
+                mechanismService.registerMechanism(
+                    mechanismMapper.dtoToMechanism(mechanismDto)
+                )
+            );
     }
 
     @PutMapping("/mechanisms/{id}")
     public void updateMechanism(@PathVariable Long id, @RequestBody MechanismDto mechanismDto) throws MechanismNotFoundException {
-        Mechanism mechanism = mechanismRepository.findById(id).orElseThrow(() -> new MechanismNotFoundException("Mechanism not found"));
+        Mechanism mechanism = mechanismService.getMechanism(id);
         mechanismMapper.updateMechanismFromDto(mechanismDto, mechanism);
+        mechanismService.updateMechanims(mechanism);
     }
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND)

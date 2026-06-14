@@ -1,7 +1,6 @@
 package com.analogicgames.bgnetwork.boardgame;
 
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,41 +16,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BoardGameController {
     @Autowired
-    private BoardGameRepository boardGameRepository;
+    private BoardGameService boardGameService;
 
     @Autowired
     private BoardGameMapper boardGameMapper;
 
     @GetMapping("/boardgames")
     public List<BoardGameDto> listBoardgames() {
-        return StreamSupport
-            .stream(boardGameRepository.findAll().spliterator(), true)
-            .map(boardGame -> boardGameMapper.boardGameToDto(boardGame))
+        return boardGameService
+            .getAllBoardGames()
+            .parallelStream()
+            .map(boardgame -> boardGameMapper.boardGameToDto(boardgame))
             .toList();
     }
 
     @GetMapping("/boardgames/{id}")
     public BoardGameDto getBoardGame(@PathVariable Long id) throws BoardGameNotFoundException {
-        return boardGameMapper.boardGameToDto(
-            boardGameRepository
-                .findById(id)
-                .orElseThrow(() -> new BoardGameNotFoundException("Board Game Not Found"))
-        );
+        return boardGameMapper
+            .boardGameToDto(
+                boardGameService.getBoardGame(id)
+            );
     }
 
     @PostMapping("/boardgames")
     public BoardGameDto registerBoardGame(@RequestBody BoardGameDto boardGameDto) {
         return boardGameMapper
             .boardGameToDto(
-                boardGameRepository.save(boardGameMapper.dtoToBoardGame(boardGameDto)
-            )
-        );
+                boardGameService.registerBoardGame(
+                    boardGameMapper.dtoToBoardGame(boardGameDto)
+                )
+            );
     }
 
     @PutMapping("/boardgames/{id}")
     public void updateBoardGame(@PathVariable Long id, @RequestBody BoardGameDto boardGameDto) throws BoardGameNotFoundException {
-        BoardGame boardGame = boardGameRepository.findById(id).orElseThrow(() -> new BoardGameNotFoundException("Board Game Not Found"));
+        BoardGame boardGame = boardGameService.getBoardGame(id);
         boardGameMapper.updateBoardGameFromDto(boardGameDto, boardGame);
+        boardGameService.updateBoardGame(boardGame);
     }
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
