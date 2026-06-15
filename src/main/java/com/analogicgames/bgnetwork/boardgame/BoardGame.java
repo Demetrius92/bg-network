@@ -1,6 +1,6 @@
 package com.analogicgames.bgnetwork.boardgame;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -21,8 +22,10 @@ public class BoardGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long entityId;
 
+    @NonNull
     private String name;
 
+    @NonNull
     private String description;
 
     private int minPlayers;
@@ -30,10 +33,23 @@ public class BoardGame {
     private int maxPlayers;    
 
     @OneToMany
-    private Set<Mechanism> mechanisms;
+    @NonNull
+    private List<Mechanism> mechanisms;
 
+    @NonNull
     private Difficulty difficulty;
 
     private int duration;
+
+    public BoardGame(@NonNull String name, @NonNull String description, int minPlayers, int maxPlayers,
+            @NonNull List<Mechanism> mechanisms, @NonNull Difficulty difficulty, int duration) {
+        this.name = name;
+        this.description = description;
+        this.minPlayers = minPlayers;
+        this.maxPlayers = maxPlayers;
+        this.mechanisms = mechanisms;
+        this.difficulty = difficulty;
+        this.duration = duration;
+    }
 
 }

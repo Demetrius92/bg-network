@@ -7,9 +7,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class Mechanism {
 
@@ -18,8 +21,10 @@ public class Mechanism {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long entityId;
 
+    @NonNull
     private String name;
     
+    @NonNull
     private String description;
 
 }
