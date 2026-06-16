@@ -20,7 +20,7 @@ public class MechanismRepositoryIntegrationTests {
 
     @Test
     public void givenMechanismRegistered_whenFindById_thenSuccess() {
-        Mechanism newMechanism = new Mechanism("Dice Rolling", "Throw dice to get random results");
+        Mechanism newMechanism = createMechanismDiceRolling();
         testEntityManager.persist(newMechanism);
 
         Optional<Mechanism> retrievedMechanism = mechanismRepository.findById(newMechanism.getEntityId());
@@ -30,8 +30,8 @@ public class MechanismRepositoryIntegrationTests {
 
     @Test
     public void givenTwoMechanismsRegistered_whenFindAll_thenSuccess() {
-        Mechanism newMechanism1 = new Mechanism("Dice Rolling", "Throw dice to get random results");
-        Mechanism newMechanism2 = new Mechanism("Hand Management", "Players have a hand of cards they manage");
+        Mechanism newMechanism1 = createMechanismDiceRolling();
+        Mechanism newMechanism2 = createMechanismHandManagement();
         testEntityManager.persist(newMechanism1);
         testEntityManager.persist(newMechanism2);
 
@@ -43,7 +43,7 @@ public class MechanismRepositoryIntegrationTests {
 
     @Test
     public void givenNewMechanism_whenSave_thenSuccess() {
-        Mechanism newMechanism = new Mechanism("Dice Rolling", "Throw dice to get random results");
+        Mechanism newMechanism = createMechanismDiceRolling();
         
         mechanismRepository.save(newMechanism);
 
@@ -51,14 +51,27 @@ public class MechanismRepositoryIntegrationTests {
         assertThat(retrievedMechanism).isEqualTo(newMechanism);
     }
 
+    @Test
     public void givenMechanismRegistered_whenUpdate_thenSuccess() {
-        Mechanism newMechanism = new Mechanism("Dice Rolling", "Throw dice to get predeterminate results");
+        Mechanism newMechanism = createMechanismDiceRolling();
         testEntityManager.persist(newMechanism);
 
-        newMechanism.setDescription("Throw dice to get random results");
+        newMechanism.setDescription("Throw dice to get predeterminate results");
         mechanismRepository.save(newMechanism); 
 
         Mechanism retrievedMechanism = testEntityManager.find(Mechanism.class, newMechanism.getEntityId());
         assertThat(newMechanism).isEqualTo(retrievedMechanism);
+    }
+
+    public Mechanism createMechanismDiceRolling() {
+        Mechanism mechanismDiceRolling = new Mechanism("Dice Rolling", "Throw dice to get predeterminate results");
+        
+        return mechanismDiceRolling;
+    }
+
+    public Mechanism createMechanismHandManagement() {
+        Mechanism mechanismHandManagement = new Mechanism("Hand Management", "Players have a hand of cards they manage");
+
+        return mechanismHandManagement;
     }
 }
