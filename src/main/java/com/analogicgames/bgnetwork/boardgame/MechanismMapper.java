@@ -12,5 +12,5 @@ public interface MechanismMapper {
     Mechanism dtoToMechanism(MechanismDto mechanismDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateMechanismFromDto(MechanismDto mechanismDto, @MappingTarget Mechanism mechanism);
+    Mechanism updateMechanismFromDto(MechanismDto mechanismDto, @MappingTarget Mechanism mechanism);
 }

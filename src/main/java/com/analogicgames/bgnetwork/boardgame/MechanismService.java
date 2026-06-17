@@ -10,5 +10,5 @@ public interface MechanismService {
 
     Mechanism registerMechanism(Mechanism mechanism);
 
-    void updateMechanims(Mechanism mechanism) throws MechanismNotFoundException;
+    void updateMechanism(Mechanism mechanism) throws MechanismNotFoundException;
 }

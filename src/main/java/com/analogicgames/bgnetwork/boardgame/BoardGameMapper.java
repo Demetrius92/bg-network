@@ -12,5 +12,5 @@ public interface BoardGameMapper {
     BoardGame dtoToBoardGame(BoardGameDto boardGameDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateBoardGameFromDto(BoardGameDto boardGameDto, @MappingTarget BoardGame boardGame);
+    BoardGame updateBoardGameFromDto(BoardGameDto boardGameDto, @MappingTarget BoardGame boardGame);
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MechanismController {
+public class RestMechanismController {
     @Autowired
     private MechanismService mechanismService;
 
@@ -26,7 +26,7 @@ public class MechanismController {
         return mechanismService
             .getAllMechanims()
             .parallelStream()
-            .map(mechanism -> mechanismMapper.mechanismToDto(mechanism))
+            .map(mechanismMapper::mechanismToDto)
             .toList();
     }
 
@@ -39,6 +39,7 @@ public class MechanismController {
     }
 
     @PostMapping("/mechanisms")
+    @ResponseStatus(code = HttpStatus.CREATED)
     public MechanismDto registerMechanism(@RequestBody MechanismDto mechanismDto) {
         return mechanismMapper
             .mechanismToDto(
@@ -49,10 +50,11 @@ public class MechanismController {
     }
 
     @PutMapping("/mechanisms/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void updateMechanism(@PathVariable Long id, @RequestBody MechanismDto mechanismDto) throws MechanismNotFoundException {
         Mechanism mechanism = mechanismService.getMechanism(id);
-        mechanismMapper.updateMechanismFromDto(mechanismDto, mechanism);
-        mechanismService.updateMechanims(mechanism);
+        Mechanism updatedMechanism = mechanismMapper.updateMechanismFromDto(mechanismDto, mechanism);
+        mechanismService.updateMechanism(updatedMechanism);
     }
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND)

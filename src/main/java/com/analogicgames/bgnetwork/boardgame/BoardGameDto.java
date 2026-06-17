@@ -1,15 +1,17 @@
 package com.analogicgames.bgnetwork.boardgame;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class BoardGameDto {
     
     private Long entityId;
@@ -23,7 +25,7 @@ public class BoardGameDto {
     private int maxPlayers;    
 
     @OneToMany
-    private Set<Mechanism> mechanisms;
+    private List<Mechanism> mechanisms;
 
     private Difficulty difficulty;
 

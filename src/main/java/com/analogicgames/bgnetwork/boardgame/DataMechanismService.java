@@ -28,7 +28,7 @@ public class DataMechanismService implements MechanismService {
     }
 
     @Override
-    public void updateMechanims(Mechanism mechanism) throws MechanismNotFoundException {
+    public void updateMechanism(Mechanism mechanism) throws MechanismNotFoundException {
         if (!mechanismRepository.existsById(mechanism.getEntityId()))
             throw new MechanismNotFoundException("Mechanism not found");
         mechanismRepository.save(mechanism);

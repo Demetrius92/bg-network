@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BoardGameController {
+public class RestBoardGameController {
     @Autowired
     private BoardGameService boardGameService;
 
@@ -26,7 +26,7 @@ public class BoardGameController {
         return boardGameService
             .getAllBoardGames()
             .parallelStream()
-            .map(boardgame -> boardGameMapper.boardGameToDto(boardgame))
+            .map(boardGameMapper::boardGameToDto)
             .toList();
     }
 
@@ -39,6 +39,7 @@ public class BoardGameController {
     }
 
     @PostMapping("/boardgames")
+    @ResponseStatus(code = HttpStatus.CREATED)
     public BoardGameDto registerBoardGame(@RequestBody BoardGameDto boardGameDto) {
         return boardGameMapper
             .boardGameToDto(
@@ -49,10 +50,11 @@ public class BoardGameController {
     }
 
     @PutMapping("/boardgames/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void updateBoardGame(@PathVariable Long id, @RequestBody BoardGameDto boardGameDto) throws BoardGameNotFoundException {
         BoardGame boardGame = boardGameService.getBoardGame(id);
-        boardGameMapper.updateBoardGameFromDto(boardGameDto, boardGame);
-        boardGameService.updateBoardGame(boardGame);
+        BoardGame updatedBoardGame = boardGameMapper.updateBoardGameFromDto(boardGameDto, boardGame);
+        boardGameService.updateBoardGame(updatedBoardGame);
     }
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
