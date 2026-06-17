@@ -80,8 +80,6 @@ public class BoardGameRepositoryIntegrationTests {
     private BoardGame createBoardGameCarcassonne() {
         Mechanism mechanismTilePlacement = new Mechanism("Tile Placement", "Placing tiles on the table");
         Mechanism mechanismAreaMajority = new Mechanism("Area Majority", "Have the majority of you game elements in a certain area");
-        testEntityManager.persist(mechanismTilePlacement);
-        testEntityManager.persist(mechanismAreaMajority);
         List<Mechanism> mechanismsCarcassonne = List.of(mechanismTilePlacement, mechanismAreaMajority);                
         BoardGame boardGameCarcassonne = new BoardGame("Carcassone", "A game where you build roads and castles", 2, 5, mechanismsCarcassonne, Difficulty.BEGINNER, 45);
 
