@@ -1,4 +1,4 @@
-package com.analogicgames.bgnetwork.boardgame;
+package com.analogicgames.bgnetwork.boardgame.service;
 
 public class BoardGameNotFoundException extends Exception {
 

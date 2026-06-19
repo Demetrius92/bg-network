@@ -1,4 +1,4 @@
-package com.analogicgames.bgnetwork.boardgame;
+package com.analogicgames.bgnetwork.boardgame.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

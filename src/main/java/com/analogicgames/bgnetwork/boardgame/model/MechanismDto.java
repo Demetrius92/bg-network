@@ -1,4 +1,4 @@
-package com.analogicgames.bgnetwork.boardgame;
+package com.analogicgames.bgnetwork.boardgame.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

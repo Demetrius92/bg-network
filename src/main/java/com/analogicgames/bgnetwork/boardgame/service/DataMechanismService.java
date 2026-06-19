@@ -1,9 +1,12 @@
-package com.analogicgames.bgnetwork.boardgame;
+package com.analogicgames.bgnetwork.boardgame.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.analogicgames.bgnetwork.boardgame.model.Mechanism;
+import com.analogicgames.bgnetwork.boardgame.model.MechanismRepository;
 
 @Service
 public class DataMechanismService implements MechanismService {

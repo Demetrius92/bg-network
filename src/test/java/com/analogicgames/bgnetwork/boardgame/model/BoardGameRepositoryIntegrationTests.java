@@ -1,4 +1,4 @@
-package com.analogicgames.bgnetwork.boardgame;
+package com.analogicgames.bgnetwork.boardgame.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

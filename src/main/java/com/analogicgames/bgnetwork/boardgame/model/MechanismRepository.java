@@ -1,4 +1,4 @@
-package com.analogicgames.bgnetwork.boardgame;
+package com.analogicgames.bgnetwork.boardgame.model;
 
 import org.springframework.data.repository.ListCrudRepository;
 

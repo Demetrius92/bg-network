@@ -1,4 +1,4 @@
-package com.analogicgames.bgnetwork.boardgame;
+package com.analogicgames.bgnetwork.boardgame.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.BDDMockito.given;
@@ -18,6 +18,11 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.analogicgames.bgnetwork.boardgame.model.Mechanism;
+import com.analogicgames.bgnetwork.boardgame.model.MechanismDto;
+import com.analogicgames.bgnetwork.boardgame.model.MechanismMapper;
+import com.analogicgames.bgnetwork.boardgame.service.MechanismService;
 
 import tools.jackson.databind.ObjectMapper;
 

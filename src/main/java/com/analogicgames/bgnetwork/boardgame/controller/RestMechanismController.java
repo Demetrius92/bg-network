@@ -1,4 +1,4 @@
-package com.analogicgames.bgnetwork.boardgame;
+package com.analogicgames.bgnetwork.boardgame.controller;
 
 import java.util.List;
 
@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.analogicgames.bgnetwork.boardgame.model.Mechanism;
+import com.analogicgames.bgnetwork.boardgame.model.MechanismDto;
+import com.analogicgames.bgnetwork.boardgame.model.MechanismMapper;
+import com.analogicgames.bgnetwork.boardgame.service.MechanismNotFoundException;
+import com.analogicgames.bgnetwork.boardgame.service.MechanismService;
 
 @RestController
 public class RestMechanismController {

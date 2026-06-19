@@ -1,6 +1,8 @@
-package com.analogicgames.bgnetwork.boardgame;
+package com.analogicgames.bgnetwork.boardgame.service;
 
 import java.util.List;
+
+import com.analogicgames.bgnetwork.boardgame.model.BoardGame;
 
 public interface BoardGameService {
 

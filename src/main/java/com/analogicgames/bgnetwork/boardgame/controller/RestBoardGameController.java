@@ -1,4 +1,4 @@
-package com.analogicgames.bgnetwork.boardgame;
+package com.analogicgames.bgnetwork.boardgame.controller;
 
 import java.util.List;
 
@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.analogicgames.bgnetwork.boardgame.model.BoardGame;
+import com.analogicgames.bgnetwork.boardgame.model.BoardGameDto;
+import com.analogicgames.bgnetwork.boardgame.model.BoardGameMapper;
+import com.analogicgames.bgnetwork.boardgame.service.BoardGameNotFoundException;
+import com.analogicgames.bgnetwork.boardgame.service.BoardGameService;
 
 @RestController
 public class RestBoardGameController {
