@@ -35,10 +35,10 @@ public class MechanismRepositoryIntegrationTests {
         testEntityManager.persist(newMechanism1);
         testEntityManager.persist(newMechanism2);
 
-        List<Mechanism> mechanismsRetrieved = mechanismRepository.findAll();
+        List<Mechanism> retrievedMechanisms = mechanismRepository.findAll();
 
-        assertThat(mechanismsRetrieved.size()).isEqualTo(2);
-        assertThat(mechanismsRetrieved).contains(newMechanism1, newMechanism2);
+        assertThat(retrievedMechanisms.size()).isEqualTo(2);
+        assertThat(retrievedMechanisms).contains(newMechanism1, newMechanism2);
     }    
 
     @Test
@@ -63,13 +63,13 @@ public class MechanismRepositoryIntegrationTests {
         assertThat(newMechanism).isEqualTo(retrievedMechanism);
     }
 
-    public Mechanism createMechanismDiceRolling() {
+    private Mechanism createMechanismDiceRolling() {
         Mechanism mechanismDiceRolling = new Mechanism("Dice Rolling", "Throw dice to get predeterminate results");
         
         return mechanismDiceRolling;
     }
 
-    public Mechanism createMechanismHandManagement() {
+    private Mechanism createMechanismHandManagement() {
         Mechanism mechanismHandManagement = new Mechanism("Hand Management", "Players have a hand of cards they manage");
 
         return mechanismHandManagement;

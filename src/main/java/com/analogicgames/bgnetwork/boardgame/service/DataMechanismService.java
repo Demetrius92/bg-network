@@ -11,7 +11,7 @@ import com.analogicgames.bgnetwork.boardgame.model.MechanismRepository;
 @Service
 public class DataMechanismService implements MechanismService {
     @Autowired
-    MechanismRepository mechanismRepository;
+    private MechanismRepository mechanismRepository;
 
     @Override
     public List<Mechanism> getAllMechanims() {
