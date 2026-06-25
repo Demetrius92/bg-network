@@ -1,9 +1,11 @@
 package com.analogicgames.bgnetwork.boardgame.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.analogicgames.bgnetwork.boardgame.model.BoardGame;
 import com.analogicgames.bgnetwork.boardgame.model.BoardGameDto;
@@ -45,14 +48,18 @@ public class RestBoardGameController {
     }
 
     @PostMapping("/boardgames")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public BoardGameDto registerBoardGame(@RequestBody BoardGameDto boardGameDto) {
-        return boardGameMapper
-            .boardGameToDto(
-                boardGameService.registerBoardGame(
-                    boardGameMapper.dtoToBoardGame(boardGameDto)
-                )
-            );
+    public ResponseEntity<BoardGameDto> registerBoardGame(@RequestBody BoardGameDto boardGameDto) {
+        BoardGameDto boardGameDtoResponse = 
+            boardGameMapper
+                .boardGameToDto(
+                    boardGameService.registerBoardGame(
+                        boardGameMapper.dtoToBoardGame(boardGameDto)
+                    )
+                );
+
+        return ResponseEntity
+            .created(getLocation(boardGameDtoResponse.getEntityId()))
+            .body(boardGameDtoResponse);
     }
 
     @PutMapping("/boardgames/{id}")
@@ -68,4 +75,12 @@ public class RestBoardGameController {
     public void handleNotFound() {
         
     }
+
+    private URI getLocation(Long resourceId) {
+        return ServletUriComponentsBuilder
+            .fromCurrentRequestUri()
+            .path("/{resourceId}")
+            .buildAndExpand(resourceId)
+            .toUri();
+    } 
 }
